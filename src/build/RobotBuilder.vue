@@ -1,8 +1,12 @@
 <template>
   <div>
     {{test}}
+    <button @click="addToCart()"> Add to cart </button>
     <div class="top-row">
       <div class="top part">
+        <div class="robot-name">{{selectedRobot.head.title}}
+          <span v-if="selectedRobot.head.onSale"> ON SALE!</span>
+        </div>
         <img
           :src="selectedRobot.head.src"
           title="head"
@@ -17,7 +21,7 @@
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img :src="selectedRobot.leftArm.src" title="left arm" />
+        <img  :src="selectedRobot.leftArm.src" title="left arm" />
         <button class="prev-selector" @click="selectPreviousLeftArm()">&#9650;</button>
         <button class="next-selector" @click="selectNextLeftArm()">&#9660;</button>
       </div>
@@ -39,6 +43,21 @@
         <button class="next-selector" @click="selectNextBase()">&#9658;</button>
       </div>
     </div>
+    <div>
+      <h1>Cart</h1>
+      <table>
+        <tr>
+          <td>Robot</td>
+          <td>Cost</td>
+        </tr>
+        <tbody>
+          <tr v-for="(robot, index) in cart" :key="index">
+            <td>{{robot.head.title}}</td>
+            <td>{{robot.cost}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -58,6 +77,9 @@ function getNextValidIndex(index, length) {
 export default {
   name: 'RobotBuilder',
   data() {
+    // Important to initialize for vue to recognize when a value changes
+    // Vues detenction works by hooking into the getters and setters
+    // of properties in the data function
     return {
       availableParts,
       selectedHeadIndex: 0,
@@ -65,6 +87,7 @@ export default {
       selectedLeftArmIndex: 0,
       selectedTorsoIndex: 0,
       selectedBaseIndex: 0,
+      cart: [],
     };
   },
   computed: {
@@ -141,6 +164,17 @@ export default {
         this.selectedBaseIndex,
         availableParts.bases.length,
       );
+    },
+    addToCart() {
+      console.log(this.cart);
+      const robot = this.selectedRobot;
+      const cost = robot.head.cost
+        + robot.leftArm.cost
+        + robot.torso.cost
+        + robot.rightArm.cost
+        + robot.base.cost;
+      this.cart.push({ ...robot, cost });
+      console.log(this.cart);
     },
   },
 };
@@ -235,5 +269,11 @@ export default {
 }
 .right .next-selector {
   right: -3px;
+}
+.robot-name{
+  position: absolute;
+  top: -25px;
+  text-align: center;
+  width: 100%;
 }
 </style>
