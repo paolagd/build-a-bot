@@ -6,7 +6,7 @@
           v-bind:src="availableParts.heads[selectedHeadIndex].src"
           title="head"
         />
-        <button class="prev-selector" v-on:click="selectedPreviousHead()">
+        <button class="prev-selector" v-on:click="selectPreviousHead()">
           &#9668;
         </button>
         <button class="next-selector" v-on:click="selectNextHead()">
@@ -16,26 +16,26 @@
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img v-bind:src="availableParts.arms[0].src" title="left arm" />
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img v-bind:src="availableParts.arms[selectedLeftArmIndex].src" title="left arm" />
+        <button class="prev-selector" v-on:click="selectPreviousLeftArm()">&#9650;</button>
+        <button class="next-selector" v-on:click="selectNextLeftArm()">&#9660;</button>
       </div>
       <div class="center part">
-        <img v-bind:src="availableParts.torsos[0].src" title="torso" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img v-bind:src="availableParts.torsos[selectedTorsoIndex].src" title="torso" />
+        <button class="prev-selector" v-on:click="selectPreviousTorso()">&#9668;</button>
+        <button class="next-selector" v-on:click="selectNextTorso()">&#9658;</button>
       </div>
       <div class="right part">
-        <img v-bind:src="availableParts.arms[0].src" title="left arm" />
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img v-bind:src="availableParts.arms[selectedRightArmIndex].src" title="right arm" />
+        <button class="prev-selector" v-on:click="selectPreviousRightArm()">&#9650;</button>
+        <button class="next-selector" v-on:click="selectNextRightArm()">&#9660;</button>
       </div>
     </div>
     <div class="bottom-row">
       <div class="bottom part">
-        <img v-bind:src="availableParts.bases[0].src" title="base" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img v-bind:src="availableParts.bases[selectedBaseIndex].src" title="base" />
+        <button class="prev-selector" v-on:click="selectPreviousBase()">&#9668;</button>
+        <button class="next-selector" v-on:click="selectNextBase()">&#9658;</button>
       </div>
     </div>
   </div>
@@ -60,6 +60,10 @@ export default {
     return {
       availableParts,
       selectedHeadIndex: 0,
+      selectedRightArmIndex: 0,
+      selectedLeftArmIndex: 0,
+      selectedTorsoIndex: 0,
+      selectedBaseIndex: 0,
     };
   },
   methods: {
@@ -69,10 +73,58 @@ export default {
         availableParts.heads.length,
       );
     },
-    selectedPreviousHead() {
+    selectPreviousHead() {
       this.selectedHeadIndex = getPreviousValidIndex(
         this.selectedHeadIndex,
         availableParts.heads.length,
+      );
+    },
+    selectNextRightArm() {
+      this.selectedRightArmIndex = getNextValidIndex(
+        this.selectedRightArmIndex,
+        availableParts.arms.length,
+      );
+    },
+    selectPreviousRightArm() {
+      this.selectedRightArmIndex = getPreviousValidIndex(
+        this.selectedRightArmIndex,
+        availableParts.arms.length,
+      );
+    },
+    selectNextLeftArm() {
+      this.selectedLeftArmIndex = getNextValidIndex(
+        this.selectedLeftArmIndex,
+        availableParts.arms.length,
+      );
+    },
+    selectPreviousLeftArm() {
+      this.selectedLeftArmIndex = getPreviousValidIndex(
+        this.selectedLeftArmIndex,
+        availableParts.arms.length,
+      );
+    },
+    selectNextTorso() {
+      this.selectedTorsoIndex = getNextValidIndex(
+        this.selectedTorsoIndex,
+        availableParts.torsos.length,
+      );
+    },
+    selectPreviousTorso() {
+      this.selectedTorsoIndex = getPreviousValidIndex(
+        this.selectedTorsoIndex,
+        availableParts.torsos.length,
+      );
+    },
+    selectNextBase() {
+      this.selectedBaseIndex = getNextValidIndex(
+        this.selectedBaseIndex,
+        availableParts.bases.length,
+      );
+    },
+    selectPreviousBase() {
+      this.selectedBaseIndex = getPreviousValidIndex(
+        this.selectedBaseIndex,
+        availableParts.bases.length,
       );
     },
   },
