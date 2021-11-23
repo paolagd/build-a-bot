@@ -1,9 +1,10 @@
 <template>
   <div>
+    {{test}}
     <div class="top-row">
       <div class="top part">
         <img
-          :src="availableParts.heads[selectedHeadIndex].src"
+          :src="selectedRobot.head.src"
           title="head"
         />
         <button class="prev-selector" @click="selectPreviousHead()">
@@ -16,24 +17,24 @@
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img :src="availableParts.arms[selectedLeftArmIndex].src" title="left arm" />
+        <img :src="selectedRobot.leftArm.src" title="left arm" />
         <button class="prev-selector" @click="selectPreviousLeftArm()">&#9650;</button>
         <button class="next-selector" @click="selectNextLeftArm()">&#9660;</button>
       </div>
       <div class="center part">
-        <img :src="availableParts.torsos[selectedTorsoIndex].src" title="torso" />
+        <img :src="selectedRobot.torso.src" title="torso" />
         <button class="prev-selector" @click="selectPreviousTorso()">&#9668;</button>
         <button class="next-selector" @click="selectNextTorso()">&#9658;</button>
       </div>
       <div class="right part">
-        <img :src="availableParts.arms[selectedRightArmIndex].src" title="right arm" />
+        <img :src="selectedRobot.rightArm.src" title="right arm" />
         <button class="prev-selector" @click="selectPreviousRightArm()">&#9650;</button>
         <button class="next-selector" @click="selectNextRightArm()">&#9660;</button>
       </div>
     </div>
     <div class="bottom-row">
       <div class="bottom part">
-        <img :src="availableParts.bases[selectedBaseIndex].src" title="base" />
+        <img :src="selectedRobot.base.src" title="base" />
         <button class="prev-selector" @click="selectPreviousBase()">&#9668;</button>
         <button class="next-selector" @click="selectNextBase()">&#9658;</button>
       </div>
@@ -65,6 +66,20 @@ export default {
       selectedTorsoIndex: 0,
       selectedBaseIndex: 0,
     };
+  },
+  computed: {
+    selectedRobot() {
+      return {
+        head: availableParts.heads[this.selectedHeadIndex],
+        leftArm: availableParts.arms[this.selectedLeftArmIndex],
+        torso: availableParts.torsos[this.selectedTorsoIndex],
+        rightArm: availableParts.arms[this.selectedRightArmIndex],
+        base: availableParts.bases[this.selectedBaseIndex],
+      };
+    },
+    test() {
+      return 'I am a test';
+    },
   },
   methods: {
     selectNextHead() {
