@@ -8,15 +8,15 @@
           <span v-if="selectedRobot.head.onSale"> ON SALE!</span>
         </div>
       </div> -->
-      <PartSelector :parts="availableParts.heads"/>
+      <PartSelector :parts="availableParts.heads" position="top"/>
     </div>
     <div class="middle-row">
-      <PartSelector :parts="availableParts.arms"/>
-      <PartSelector :parts="availableParts.torsos"/>
-      <PartSelector :parts="availableParts.arms"/>
+      <PartSelector :parts="availableParts.arms" position="left"/>
+      <PartSelector :parts="availableParts.torsos" position="center"/>
+      <PartSelector :parts="availableParts.arms" position="right"/>
     </div>
     <div class="bottom-row">
-      <PartSelector :parts="availableParts.bases"/>
+      <PartSelector :parts="availableParts.bases" position="bottom"/>
     </div>
     <div>
       <h1>Cart</h1>
