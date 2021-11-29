@@ -3,3 +3,10 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@layer utilities {
+  .this-is-a-test{
+    color: green;
+    font-size: 50px;
+  } 
+}
