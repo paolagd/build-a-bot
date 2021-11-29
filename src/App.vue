@@ -10,6 +10,7 @@
     </nav>
   </header>
   <main>
+    <div class="bg-red-500">yay</div>
     <RobotBuilder />
     <Search/>
   </main>
